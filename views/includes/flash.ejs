@@ -1,0 +1,120 @@
+<!-- views/includes/flash.ejs -->
+
+<!-- 1. SVG Definitions Area for Icons -->
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+  </symbol>
+  <symbol id="info-fill" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+  <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+</svg>
+
+<style>
+  /* 🎯 Main Flash Notification Floating Manager */
+  .flash-alert-wrapper {
+      position: fixed;
+      top: 85px;                /* Navbar ke theek niche float karega */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2000 !important; /* Har element ke upar visible rakhne ke liye */
+      width: 90%;               
+      max-width: 480px;         
+  }
+
+  .custom-toast-alert {
+      border-radius: 12px !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+      border: none !important;
+      padding: 14px 20px !important;
+      transition: all 0.5s ease-in-out;
+  }
+
+  /* 🎯 Animation class jab pop-up aayega */
+  .bounce-in-top {
+      animation: alertBounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  /* 🎯 Animation class jab pop-up jayega */
+  .slide-out-top {
+      animation: alertSlideOut 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045) both;
+  }
+
+  /* 🔥 Bouncing Effect Keyframes: Uper se niche, fir thoda upar, fir settled */
+  @keyframes alertBounceIn {
+      0% {
+          transform: translateY(-200px);
+          opacity: 0;
+      }
+      60% {
+          transform: translateY(20px); /* Ekdum neeche tak aayega */
+          opacity: 1;
+      }
+      80% {
+          transform: translateY(-10px); /* Halka sa upar uthega bounce hokar */
+      }
+      100% {
+          transform: translateY(0); /* Apni fixed position par lock ho jayega */
+      }
+  }
+
+  /* Gayab hone wali clean animation */
+  @keyframes alertSlideOut {
+      0% {
+          transform: translateY(0);
+          opacity: 1;
+      }
+      100% {
+          transform: translateY(-100px);
+          opacity: 0;
+      }
+  }
+</style>
+
+<!-- Wrapper Outer Shell -->
+<div class="flash-alert-wrapper">
+    
+    <!-- 🟢 SUCCESS FLASH MESSAGE -->
+    <% if(success && success.length){ %>
+        <div class="alert alert-success d-flex align-items-center alert-dismissible custom-toast-alert bounce-in-top" id="customAlertSuccess" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="18" height="18" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>   
+            <div class="pe-3"><b><%= success %></b></div>
+            <button type="button" class="btn-close ms-auto position-relative p-0" data-bs-dismiss="alert" aria-label="Close" style="top:unset; right:unset;"></button>
+        </div>
+    <% } %>
+
+    <!-- 🔴 ERROR FLASH MESSAGE -->
+    <% if(error && error.length){ %>
+        <div class="alert alert-danger d-flex align-items-center alert-dismissible custom-toast-alert bounce-in-top" id="customAlertError" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="18" height="18" role="img" aria-label="Error:"><use xlink:href="#exclamation-triangle-fill"/></svg>   
+            <div class="pe-3"><b><%= error %></b></div>
+            <button type="button" class="btn-close ms-auto position-relative p-0" data-bs-dismiss="alert" aria-label="Close" style="top:unset; right:unset;"></button>
+        </div>
+    <% } %>
+
+</div>
+
+<script>
+  // 🎯 Flash message dynamic closing animation logic 
+  window.addEventListener('DOMContentLoaded', () => {
+    // querySelectorAll se hum dono me se jo bhi alert page par hoga use select kar lenge
+    const alertEl = document.querySelector('#customAlertSuccess, #customAlertError');
+    
+    if (alertEl) {
+      setTimeout(() => {
+        // Entry animation ko hata kar exit class trigger karenge
+        alertEl.classList.remove('bounce-in-top');
+        alertEl.classList.add('slide-out-top');
+      
+        // Animation poori hone ke baad element ko DOM se delete karenge
+        setTimeout(() => {
+          alertEl.remove();
+        }, 400); 
+        
+      }, 3000); // 2.5 seconds tak screen par rukega
+    }
+  });
+</script>

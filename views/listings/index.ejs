@@ -1,0 +1,212 @@
+<% layout('/layouts/boilerplate') -%>
+
+<style>
+    /* --- Categories Filter Scrollbar Styles --- */
+    #filters {
+        scrollbar-width: none; /* Firefox me scrollbar chupane ke liye */
+    }
+    #filters::-webkit-scrollbar {
+        display: none; /* Chrome/Safari me scrollbar chupane ke liye */
+    }
+
+    .filter {
+      margin-top: 1rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 5px;
+        opacity: 0.7;
+        text-decoration: none;
+        width: 100px;
+        text-align: center;
+    }
+
+    .category-icon i {
+        color: inherit; 
+        font-size: 15px !important;
+    }
+    
+    .category-icon p {
+        color: inherit;
+        font-size: 15px !important;
+    }
+
+    .filter p {
+        font-size: 12px;
+    }
+
+    .filter:hover {
+        opacity: 1 !important;
+        border-bottom: 2px solid #717171;
+        transform: translateY(-2px);
+    }
+
+    /* 🎯 Selected/Active state with Pink Highlight Theme & Shadows */
+    .font-bold {
+        font-weight: bold;
+        color: #ff385c !important; /* Premium Airbnb Pink Color */
+        border-bottom: 2px solid #ff385c !important; /* Pink Underline */
+        transform: scale(1.08);                    
+        text-shadow: 0px 1px 3px rgba(255, 56, 92, 0.2); 
+        filter: drop-shadow(0px 4px 6px rgba(255, 56, 92, 0.15)); 
+    }
+
+    /* --- Ultra Responsive Airbnb Listings Grid Styles --- */
+    .listing-link {
+        display: block;
+    }
+
+    .listing-card {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    /* 🎯 Image Container: Aspect ratio 1:1 (Square) height lock */
+    .card-img-wrapper {
+        width: 100%;
+        aspect-ratio: 1 / 1; 
+    }
+
+    .listing-img {
+        width: 100%;
+        height: 100% !important;
+        object-fit: cover;
+        transition: transform 0.2s ease;
+    }
+
+    /* 🎯 Mobile layout ke liye Fonts, Spacing and Alignment adjustments */
+    .responsive-card-body .card-text b {
+        font-size: 11px; /* Mobile par title chhota dikhega */
+    }
+
+    .responsive-card-body .pricing-text {
+        font-size: 10px; /* Mobile par price ka size */
+    }
+
+    .responsive-card-body .per-night-span {
+        font-size: 9px;
+        color: #717171;
+    }
+
+    /* 🎯 Content truncate rule data limits validation bounds */
+    .text-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 🎯 Screen size badhne par text sizes scaling parameters logic updates */
+    @media (min-width: 576px) {
+        .responsive-card-body .card-text b {
+            font-size: 13px;
+        }
+        .responsive-card-body .pricing-text {
+            font-size: 12px;
+        }
+        .responsive-card-body .per-night-span {
+            font-size: 11px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .responsive-card-body .card-text b {
+            font-size: 14px;
+        }
+        .responsive-card-body .pricing-text {
+            font-size: 13px;
+        }
+    }
+    /* transition:transform 0.1s linear;  */
+    .col .card-img-wrapper:hover{
+      /* transform: scale(1.05); */
+      transform: translateY(-10px) scale(1.04);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    }
+    
+    .col .card-img-wrapper{
+      transform: scale(1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+        backdrop-filter: blur(5px);
+
+    }
+    .col :hover .title{
+      /* text-decoration: underline; */
+      color:#ff385c !important;
+      font-weight: 900;
+      /* background-color: aqua; */
+
+    }
+</style>
+
+<% 
+  // 🎯 Saari categories ka single data array setup
+  const categories = [
+    { name: "All", icon: "fa-border-all" },
+    { name: "Trending", icon: "fa-fire" },
+    { name: "Rooms", icon: "fa-bed" },
+    { name: "Mountains", icon: "fa-mountain" },
+    { name: "Castles", icon: "fa-fort-awesome" },
+    { name: "Amazing Pools", icon: "fa-person-swimming", label: "Pools" },
+    { name: "Camping", icon: "fa-tent" },
+    { name: "Farms", icon: "fa-cow" },
+    { name: "Arctic", icon: "fa-snowflake" },
+    { name: "Villas", icon: "fa-house-chimney" }
+  ];
+%>
+
+<!-- 🎯 Categories Navigation Options Bar Grid System Container -->
+<div id="filters" class="d-flex align-items-center justify-content-start justify-content-md-evenly gap-4 my-3 overflow-x-auto pb-2 w-100" >
+    <% categories.forEach(cat => { %>
+        <a href="<%= cat.name === 'All' ? '/listings' : '/listings?category=' + cat.name %>" 
+           class="filter text-decoration-none text-dark text-center flex-grow-1 flex-md-grow-0 <%= (selectedCategory === cat.name || (cat.name === 'All' && !selectedCategory)) ? 'opacity-100 font-bold' : 'opacity-70' %>"
+           style="min-width: 70px;">
+            <div class="category-icon"><i class="fa-solid <%= cat.icon %> fs-4"></i></div>
+            <p class="m-0 pt-1" style="font-size: 12px;"><%= cat.label || cat.name %></p>
+        </a>
+    <% }); %>
+</div>
+
+<!-- 🎯 Fallback check if category/search database contains empty datasets array result -->
+<% if (allListings.length === 0) { %>
+    <div class="col-12 text-center my-5 p-5 border rounded-3 bg-light shadow-sm">
+        <div class="mb-3 text-muted">
+            <i class="fa-regular fa-folder-open fs-1"></i>
+        </div>
+        <h3 class="text-dark fw-semibold">No listings available for "<%= selectedCategory || 'your search' %>"</h3>
+        <p class="text-secondary">Be the first one to host a property in this category!</p>
+        <a href="/listings/new" class="btn btn-danger mt-2 px-4 py-2" style="border-radius: 20px; font-weight: 600; background-color: #ff385c; border: none;">
+            <i class="fa-solid fa-circle-plus me-2"></i>Add New Listing Here
+        </a>
+    </div>
+<% } else { %>
+    
+    <h2 class="mb-3">All Listings</h2>
+    <!-- 🎯 Responsive Grid distribution configuration matrix setup rules:
+         row-cols-3 (Mobile screen metrics), 
+         row-cols-sm-4 (Tablets screen models), 
+         row-cols-lg-5 (Desktop monitors configurations), 
+         row-cols-xl-6 (Bigger viewport scales) -->
+    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-2 g-md-3 mt-1">
+        <% for(const listing of allListings) { %>
+            <div class="col">
+                <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none">
+                    <div class="card h-100 listing-card border-0">
+                        
+                        <div class="card-img-wrapper position-relative overflow-hidden" style="border-radius: 1.5rem;">
+                            <img src="<%= listing.image.url %>" class="card-img-top listing-img" alt="listing_img">
+                        </div>
+                        
+                        <div class="card-body responsive-card-body px-1 pt-1">
+                            <p class="card-text title text-dark m-0 text-truncate"><b><%= listing.title %></b></p>
+                            <p class="card-text text-dark pricing-text mt-0">
+                                <b>&#x20B9;<%= listing.price?.toLocaleString("en-IN") %></b> <span class="per-night-span">/ Night</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>
+<% } %>

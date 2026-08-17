@@ -1,0 +1,119 @@
+<% layout('/layouts/boilerplate') -%>
+
+<style>
+    /* --- Premium Modern Forms Custom Styles --- */
+    .form-container {
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+    }
+    .form-label {
+        font-weight: 600;
+        color: #222222;
+    }
+    .form-control, .form-select {
+        border-radius: 8px !important;
+        padding: 10px 12px;
+        /* border: 1px solid #ced4da !important; Neutral clean border */
+        color: #222222 !important;
+    }
+    
+    
+    .btn-custom {
+        padding: 10px 24px;
+        border-radius: 8px !important;
+        font-weight: 600;
+    }
+    .invalid-image{
+        color : red;
+    }
+</style>
+
+<!-- 🎯 Main Centered Grid: Mobile par full-width (col-12), large screens par center layout (col-lg-8) -->
+<div class="container form-container">
+    <!-- Offset completely removed for robust grid scaling -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12">
+            
+            <h2 class="mb-4 text-dark fw-bold"><i class="fa-solid fa-circle-plus me-2 text-danger"></i>Add a New Listing</h2>
+            
+            <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+
+                <!-- Title Field -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" id="title" maxlength="100"  required placeholder="Enter a catchy title" name="title" class="form-control">
+                    <div class="valid-feedback">Title looks good!</div>
+                    <div class="invalid-feedback">Please enter a title</div>
+                </div>
+
+                <!-- Description Field (Converted to Textarea for responsive paragraphs input) -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" maxlength="200"  required rows="4" placeholder="Describe the wonderful details about your property..." name="description" class="form-control"></textarea>
+                    <div class="invalid-feedback">Please provide a short description</div>
+                </div>
+
+                <!-- Image Uploader Field -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload Image</label>
+                    <!-- accept attribute lagane se sirf images hi select hongi -->
+                    <input type="file" id="image" required name="image" class="form-control" accept="image/*" onchange="validateFileSize(this)">
+                    <div class="invalid-feedback" id="image-feedback">Please upload a valid display image</div>
+                    <div class="invalid-image" id="image-feedback"></div>
+                </div>
+                <!-- Price and Country Grid Row (Collapses automatically on mobile grids) -->
+                <div class="row">
+                    <div class="mb-3 col-md-4 col-12">
+                        <label for="price" class="form-label">Price per Night</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light fw-bold" style="border-radius: 8px 0 0 8px;">&#x20B9;</span>
+                            <input type="number" id="price" placeholder="1500" required name="price" class="form-control" style="border-radius: 0 8px 8px 0 !important;">
+                            <div class="invalid-feedback">Please enter a valid price</div>
+                            <div class="valid-feedback">good!</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 col-md-8 col-12">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" id="country" maxlength="40"  placeholder="e.g. India" required name="country" class="form-control">
+                        <div class="invalid-feedback">Please choose a country</div>
+                    </div>
+                </div>
+
+                <!-- Location and Category Grid Row (Converted col to col-md-6 for responsive phone stack) -->
+                <div class="row">
+                    <div class="mb-3 col-md-6 col-12">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" id="location" maxlength="60" required placeholder="e.g. Mumbai, Maharashtra" name="location" class="form-control">
+                        <div class="invalid-feedback">Please enter your location</div>
+                        <div class="valid-feedback">good!</div>
+                    </div>
+
+                    <div class="mb-4 col-md-6 col-12">
+                        <label for="category" class="form-label">Select Category</label>
+                        <select name="category" id="category" class="form-select" required>
+                            <option value="" disabled selected>Choose a category...</option>
+                            <option value="Trending">🔥 Trending</option>
+                            <option value="Rooms">🛌 Rooms</option>
+                            <option value="Mountains">🏔️ Mountains</option>
+                            <option value="Castles">🏰 Castles</option>
+                            <option value="Amazing Pools">🏊 Amazing Pools</option>
+                            <option value="Camping">⛺ Camping</option>
+                            <option value="Farms">🚜 Farms</option>
+                            <option value="Arctic">❄️ Arctic</option>
+                            <option value="Villas">🏡 Villas</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a category.</div>
+                    </div>
+                </div>
+
+                <!-- Route Controls Action Footer Buttons Section -->
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <a href="/listings" class="btn btn-dark btn-custom"><i class="fa-solid fa-arrow-left me-2"></i>Back</a>
+                    <button class="btn btn-danger btn-custom" style="background-color: #ff385c; border: none;"><i class="fa-solid fa-circle-plus me-2"></i>Create Listing</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

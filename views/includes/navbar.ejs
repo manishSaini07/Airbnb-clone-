@@ -1,0 +1,223 @@
+
+<style>
+ /* --- Airbnb Search Bar Responsive Structure --- */
+.airbnb-search-form {
+    border: 1px solid #ced4da;
+    border-radius: 40px; 
+    padding: 4px 4px 4px 14px; 
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03);
+    transition: box-shadow 0.2s ease;
+    align-items: center;
+    max-width: 450px; 
+    width: 100%;
+}
+
+/* Mobile Screens (Width under 768px) par search bar full width par dusri line me center ho jayega */
+@media (max-width: 767.98px) {
+    .airbnb-search-form {
+        max-width: 100%; /* Pure screen par fail jayega padding gaps ke sath */
+    }
+}
+
+.airbnb-search-form:hover {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.airbnb-search-input {
+    border: none !important; 
+    box-shadow: none !important; 
+    padding: 0;
+    font-size: 14px;
+    color: #222222;
+}
+
+.airbnb-search-input::placeholder {
+    color: #717171;
+    font-weight: 400;
+}
+
+.airbnb-search-btn {
+    background-color: #ff385c !important; 
+    color: white !important;
+    border-radius: 24px !important; 
+    padding: 8px 14px !important; /* Mobile friendly padding compression */
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none !important;
+    white-space: nowrap; 
+    
+}
+
+@media (min-width: 768px) {
+    .airbnb-search-btn {
+        padding: 10px 20px !important; /* Desktop display padding grid setup */
+    }
+}
+
+.search-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 6px; 
+}
+
+.airbnb-search-btn:hover {
+    background-color: #e61e4d !important; 
+    color: white !important;
+}
+/* .parent-card:hover > .inner-image {
+  transform: scale(1.5); /* Size 50% badh jayega */
+
+.airbnb-search-btn:hover .fa-magnifying-glass{
+  transform: scale(1.27);
+  transition: transform 0.7s ease;
+}
+.airbnb-search-btn .fa-magnifying-glass{
+  transform: scale(1);
+  transition: transform 0.7s ease;
+}
+
+/* --- Become a Host Button Modifications --- */
+.host-btn {
+    font-size: 0.85rem !important; /* Mobile friendly tiny font layout */
+    border-radius: 2rem;
+    background-color: white;
+    border: none;
+    color: black;
+    white-space: nowrap;
+}
+
+@media (min-width: 576px) {
+    .host-btn {
+        font-size: 0.95rem !important; /* Desktop standard padding metrics updates */
+    }
+}
+
+.host-btn:hover {
+    background-color: #f7f7f7;
+    color: black;
+    border: 1px solid #717171;
+}
+
+/* --- User profile setup --- */
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    background-color: #ff385c; 
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase; 
+    transition: transform 0.2s ease;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+}
+.user-dropdown-menu {
+    position: absolute !important; /* 🎯 Main Fix: Isse menu float karega, layout ko bigadega nahi */
+    right: 0 !important;           /* Menu navbar se right-align rahega */
+    left: auto !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    padding: 12px !important;
+    min-width: 200px;
+    margin-top: 8px !important;
+    z-index: 1050 !important;      /* Doosre elements ke upar floating laye */
+}
+
+
+.dropdown-user-info {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-user-info p {
+    margin: 0;
+}
+
+/* --- Brand logo parameters styling --- */
+.airbnb-brand-wrapper {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important; 
+    color: #ff385c !important; 
+    font-weight: 700; 
+    font-size: 1.6rem; 
+    gap: 4px; 
+    transition: transform 0.2s ease;
+}
+
+.airbnb-brand-wrapper i {
+    font-size: 1.8rem; 
+}
+
+.font-size-sm {
+    font-size: 0.9rem;
+}
+
+
+</style>
+
+<nav class="navbar navbar-expand-md bg-white border-bottom sticky-top py-2">
+  <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between">
+    
+    <!-- Left: Brand Logo -->
+    <a class="airbnb-brand-wrapper m-0" href="/listings">
+        <i class="fa-brands fa-airbnb"></i>
+        <span class="d-none d-sm-inline">Airbnb</span> <!-- Mobile par text hide hoga, sirf logo dikhega space bachane ke liye -->
+    </a>
+
+    <!-- Center/Bottom: Search Bar (Mobile pr order-3 hokar neeche chala jayega) -->
+    <form class="d-flex airbnb-search-form order-3 order-md-2 my-2 my-md-0 mx-auto mx-md-3" role="search" action="/listings" method="GET">
+        <input class="form-control airbnb-search-input" type="search" name="search" placeholder="Search destinations..." aria-label="Search">
+        <button class="btn airbnb-search-btn" type="submit">
+            <div class="search-btn-content">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span class="d-none d-md-inline">Search</span> <!-- Mobile par button me sirf glass icon dikhega -->
+            </div>
+        </button>
+    </form>
+
+    <!-- Right: Right Actions (Become Host + User Menu) -->
+    <div class="d-flex align-items-center order-2 order-md-3 gap-2 gap-sm-3">
+        <a class="btn btn-light host-btn m-0 px-2 px-sm-3" href="/listings/new">Become a host</a>
+        <!-- <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" >
+  <label class="form-check-label" for="switchCheckChecked"><b>Light Mode</b></label>
+</div>
+         -->
+        <div class="navbar-nav flex-row align-items-center">
+        <% if(!currUser){ %>
+            <a class="nav-link host-btn px-2 me-1 font-size-sm " href="/signup">Sign Up</a>
+            <a class="nav-link host-btn px-2 font-size-sm" href="/login">Login</a>
+        <% } else { %>
+            <div class="dropdown position-relative d-inline-block">
+                <div class="user-avatar m-2" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= currUser.username.charAt(0) %>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="userMenuButton">
+                    <li class="dropdown-user-info">
+                        <span class="text-muted" style="font-size: 0.85rem;">Logged in as</span>
+                        <p class="fw-bold text-dark"><%= currUser.username %></p>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-danger d-flex align-items-center justify-content-between" href="/logout">
+                            <span>Logout</span>
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        <% } %>
+        </div>
+    </div>
+
+  </div>
+</nav>

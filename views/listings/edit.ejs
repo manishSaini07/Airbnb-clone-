@@ -1,0 +1,131 @@
+<% layout('/layouts/boilerplate') -%>
+
+<style>
+    /* --- Premium Forms Custom Styles --- */
+    .edit-container {
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+    }
+    .form-label {
+        font-weight: 600;
+        color: #222222;
+    }
+    .form-control, .form-select {
+        border-radius: 8px !important;
+        padding: 10px 12px;
+        border: 1px solid #b0b0b0;
+    }
+    /* .form-control:focus, .form-select:focus {
+        border-color: #38ff49 !important;
+        box-shadow: 0 0 0 0.2rem rgba(56, 255, 109, 0.25) !important;
+    } */
+    .preview-img {
+        object-fit: cover;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .btn-custom {
+        padding: 10px 24px;
+        border-radius: 8px !important;
+        font-weight: 600;
+    }
+    .invalid-image{
+        color : red;
+    }
+</style>
+
+<!-- 🎯 Main Responsive Core Wrapper Container Matrix Grid -->
+<div class="container edit-container">
+    <!-- Offset hata kar mobile aur desktop dono ko balance kiya -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12">
+            
+            <h2 class="mb-4 text-dark fw-bold"><i class="fa-regular fa-pen-to-square me-2 text-success"></i>Edit Listing Details</h2>
+            
+            <form method="post" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+                
+                <!-- Title Field -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <!-- Inputs name update format alignment layout options parameters -->
+                    <input type="text" id="title" name="title" maxlength="100" value="<%= listing.title %>" required class="form-control">
+                    <div class="valid-feedback">Title looks good!</div>
+                    <div class="invalid-feedback">Please enter a catchy title.</div>
+                    
+                </div>
+
+                <!-- Description Field -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" name="description" rows="4" required class="form-control" maxlength="200"  placeholder="Describe your property..."><%= listing.description %></textarea>
+                    <div class="invalid-feedback">Please provide a short description.</div>
+                </div>
+
+                <!-- Existing Image Preview Layout Grid -->
+                <div class="mb-3">
+                    <p class="form-label mb-2">Original Listing Image</p>
+                    <img src="<%= listing.image.url %>" alt="listing_img" class="preview-img" style="height: 10rem; width: 15rem; border-radius: 12px;">
+                </div>
+                <!-- File Uploader Component Row -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload another image</label>
+                    <input type="file" id="image" name="image" class="form-control" accept="image/*" onchange="validateFileSize(this)">
+                    <div class="invalid-feedback">Please upload a image</div>
+                    <div class="invalid-image" id="image-feedback"></div>
+                </div>
+
+                <!-- Price and Country Grid Row (Mobile par collapse ho kar single column banega) -->
+                <div class="row">
+                    <div class="mb-3 col-md-4 col-12">
+                        <label for="price" class="form-label">Price per Night</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light fw-bold" style="border-radius: 8px 0 0 8px;">&#x20B9;</span>
+                            <input type="number" id="price" value="<%= listing.price %>" name="price" required class="form-control" style="border-radius: 0 8px 8px 0 !important;">
+                            <div class="invalid-feedback">Please enter price value.</div>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-8 col-12">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" id="country" maxlength="40"  value="<%= listing.country %>" name="country" required class="form-control">
+                        <div class="invalid-feedback">Please choose a valid country.</div>
+                    </div>
+                </div>
+
+                <!-- Location and Category Grid Row (Mobile responsive col-12 tracking setup lock) -->
+                <div class="row">
+                    <div class="mb-3 col-md-6 col-12">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" id="location" maxlength="60"  required placeholder="Add Location" name="location" class="form-control" value="<%= listing.location %>">
+                        <div class="invalid-feedback">Please enter your location.</div>
+                    </div>
+
+                    <div class="mb-4 col-md-6 col-12">
+                        <label for="category" class="form-label">Select Category</label>
+                        <!-- 🎯 FIX 1: name="category" ko badla name="listing[category]" me perfect object nesting ke liye -->
+                        <select name="category" id="category" class="form-select" required>
+                            <!-- 🎯 FIX 2: Dynamic selected element fallback parameter layout checks wrapper conditional rules -->
+                            <option value="" disabled <%= !listing.category ? 'selected' : '' %>>Choose a category...</option>
+                            <option value="Trending" <%= listing.category === 'Trending' ? 'selected' : '' %>>🔥 Trending</option>
+                            <option value="Rooms" <%= listing.category === 'Rooms' ? 'selected' : '' %>>🛌 Rooms</option>
+                            <option value="Mountains" <%= listing.category === 'Mountains' ? 'selected' : '' %>>🏔️ Mountains</option>
+                            <option value="Castles" <%= listing.category === 'Castles' ? 'selected' : '' %>>🏰 Castles</option>
+                            <option value="Amazing Pools" <%= listing.category === 'Amazing Pools' ? 'selected' : '' %>>🏊 Amazing Pools</option>
+                            <option value="Camping" <%= listing.category === 'Camping' ? 'selected' : '' %>>⛺ Camping</option>
+                            <option value="Farms" <%= listing.category === 'Farms' ? 'selected' : '' %>>🚜 Farms</option>
+                            <option value="Arctic" <%= listing.category === 'Arctic' ? 'selected' : '' %>>❄️ Arctic</option>
+                            <option value="Villas" <%= listing.category === 'Villas' ? 'selected' : '' %>>🏡 Villas</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a category.</div>
+                    </div>
+                </div>
+
+                <!-- Route Controls Action Footer Buttons Area Grid Layout -->
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <a href="/listings/<%=listing._id%>" class="btn btn-dark btn-custom"><i class="fa-solid fa-arrow-left me-2"></i>Cancel</a>
+                    <button class="btn btn-success btn-custom" type="submit"><i class="fa-regular fa-circle-check me-2"></i>Save Changes</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

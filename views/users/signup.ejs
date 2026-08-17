@@ -1,0 +1,110 @@
+<% layout('/layouts/boilerplate') -%>
+
+<style>
+    /* --- Premium Modern Signup Forms Custom Styles --- */
+    .signup-container {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+    .signup-card-wrapper {
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    /* Mobile screen view parameters styling adjustments */
+    @media (max-width: 575.98px) {
+        .signup-card-wrapper {
+            border: none;
+            box-shadow: none;
+            padding: 1rem;
+        }
+    }
+    .form-label {
+        font-weight: 600;
+        color: #222222;
+    }
+    .form-control {
+        border-radius: 8px !important;
+        padding: 12px;
+        /* border: 1px solid #b0b0b0 !important; */
+        color: #222222 !important;
+    }
+    
+    /* 🎯 Focus state parameters alignment (Red borders bypass code) */
+    .form-control:focus {
+        border-color: #ff385c !important; /* Premium Airbnb Pink Focus Theme */
+        background-color: #ffffff !important;
+        color: #222222 !important;
+        outline: none !important;
+        box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.25) !important;
+    }
+
+    .form-control:invalid {
+        box-shadow: none !important;
+    }
+    
+    .btn-airbnb {
+        background-color: #ff385c !important;
+        border: none !important;
+        color: white !important;
+        padding: 12px;
+        border-radius: 8px !important;
+        font-weight: 600;
+        font-size: 1rem;
+        width: 100%; /* Full width button layout rules matching login screen models */
+        transition: background-color 0.2s ease;
+    }
+    .btn-airbnb:hover {
+        background-color: #e61e4d !important;
+    }
+</style>
+
+<!-- 🎯 Main Centered Grid: Mobile par full space aur desktop par compact layout wrapper box -->
+<div class="container signup-container">
+    <div class="row justify-content-center">
+        <!-- Offset parameters removed for unified responsive grid design scaling matrix -->
+        <div class="col-lg-5 col-md-7 col-11 signup-card-wrapper">
+            
+            <h2 class="mb-4 text-dark fw-bold text-center">
+                <i class="fa-solid fa-user-plus me-2 text-danger"></i>Create Your Account
+            </h2>
+            
+            <form method="post" action="/signup" novalidate class="needs-validation">
+          
+                <!-- Username Field -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" required placeholder="Enter username" name="username" class="form-control">
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter username</div>
+                </div>
+
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" required placeholder="name123@gmail.com" name="email" class="form-control">
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter a valid email address</div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" minlength="5" required placeholder="Create a strong password (min: 5)" name="password" class="form-control">
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter a password with minimum 5 characters</div>
+                </div>
+
+                <!-- Full Width Signup Button Option Link -->
+                <button class="btn btn-airbnb mb-2" type="submit">Sign Up</button>
+                
+                <div class="text-center mt-3">
+                    <span class="text-muted small">Already have an account? <a href="/login" class="text-dark fw-bold text-decoration-underline">Login</a></span>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
