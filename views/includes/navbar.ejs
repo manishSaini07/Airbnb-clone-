@@ -177,16 +177,27 @@
     font-size: 0.9rem;
 }
 .no-user i{
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
     font-size: 2rem;
     cursor: pointer;
+    /* text-transform: uppercase;  */
+    transition: transform 0.5s ease;
 }
-.no-user-a a :hover {
+.no-user i:hover {
+    transform: scale(1.05);
+}
+.no-user-a :hover {
     color:#ff385c;
     font-weight: 900;
-
-
 }
-
+.no-user-a{
+    text-align: center;
+}
 </style>
 
 <nav class="navbar navbar-expand-md bg-white border-bottom sticky-top py-2">
@@ -219,7 +230,7 @@
          -->
         <div class="navbar-nav flex-row align-items-center">
         <% if(!currUser){ %>
-            <div class="dropdown me-3 position-relative d-inline-block">
+            <div class="dropdown me-0 position-relative d-inline-block">
                 <div class="no-user" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-circle-user" style="color: #ff385c;"></i>
                 </div>
