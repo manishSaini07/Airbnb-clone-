@@ -10,7 +10,7 @@
     }
 
     .filter {
-        margin-top: 1.3rem !important;
+        /* margin-top: 1.3rem !important; */
         transition: all 0.2s ease;
         cursor: pointer;
         border-bottom: 2px solid transparent;
@@ -118,6 +118,19 @@
             font-size: 13px;
         }
     }
+
+    /* 📱 Mobile view ke liye categories row ka top margin fix */
+@media (max-width: 760px) {
+    #filters {
+        margin-top: 2.5rem !important; /* Mobile par upar se space dene ke liye */
+        margin-bottom: 1rem !important;
+    }
+    
+    .filter {
+        padding-top: 5px; /* Icon ko boundary se thoda neeche push karne ke liye */
+    }
+}
+
     /* transition:transform 0.1s linear;  */
     .col .card-img-wrapper:hover{
       /* transform: scale(1.05); */
