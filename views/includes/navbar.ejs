@@ -54,6 +54,17 @@
         padding: 10px 20px !important; /* Desktop display padding grid setup */
     }
 }
+@media (max-width: 575px) {
+    .airbnb-brand-wrapper span{
+        font-size: 1.3rem;
+    }
+}
+@media (max-width: 300px) {
+    .airbnb-brand-wrapper span{
+        /* font-size: rem; */
+        display: none;
+    }
+}
 
 .search-btn-content {
     display: flex;
@@ -96,7 +107,8 @@
 .host-btn:hover {
     background-color: #f7f7f7;
     color: black;
-    border: 1px solid #717171;
+    /* border: 1px solid gray; */
+    box-shadow: inset 0 0 0 1.5px #717171;
 }
 
 /* --- User profile setup --- */
@@ -164,7 +176,15 @@
 .font-size-sm {
     font-size: 0.9rem;
 }
+.no-user i{
+    font-size: 2rem;
+}
+.no-user-a a :hover {
+    color:#ff385c;
+    font-weight: 900;
 
+
+}
 
 </style>
 
@@ -174,7 +194,7 @@
     <!-- Left: Brand Logo -->
     <a class="airbnb-brand-wrapper m-0" href="/listings">
         <i class="fa-brands fa-airbnb"></i>
-        <span class=" d-sm-inline">Airbnb</span> <!-- Mobile par text hide hoga, sirf logo dikhega space bachane ke liye -->
+        <span class="d-sm-inline">Airbnb</span> <!-- Mobile par text hide hoga, sirf logo dikhega space bachane ke liye -->
     </a>
 
     <!-- Center/Bottom: Search Bar (Mobile pr order-3 hokar neeche chala jayega) -->
@@ -198,8 +218,20 @@
          -->
         <div class="navbar-nav flex-row align-items-center">
         <% if(!currUser){ %>
-            <a class="nav-link host-btn px-2 me-1 font-size-sm " href="/signup">Sign Up</a>
-            <a class="nav-link host-btn px-2 font-size-sm" href="/login">Login</a>
+            <div class="dropdown me-3 position-relative d-inline-block">
+                <div class="no-user" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-circle-user" style="color: #ff385c;"></i>
+                </div>
+                <ul class="dropdown-menu no-user-a dropdown-menu-end user-dropdown-menu" aria-labelledby="userMenuButton">
+                    <li class="dropdown-user-info">
+                        <a class="nav-link px-2 me-1 font-size-sm " href="/signup"><b>Sign Up</b></a>
+                        </li>
+                    <li>
+                        <a class="nav-link px-2 font-size-sm" href="/login"><b>Login</b></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         <% } else { %>
             <div class="dropdown position-relative d-inline-block">
                 <div class="user-avatar m-2" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
