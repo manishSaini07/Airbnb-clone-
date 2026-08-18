@@ -10,7 +10,7 @@
     }
 
     .filter {
-      margin-top: 1rem;
+        margin-top: 1.3rem !important;
         transition: all 0.2s ease;
         cursor: pointer;
         border-bottom: 2px solid transparent;
@@ -54,6 +54,7 @@
     /* --- Ultra Responsive Airbnb Listings Grid Styles --- */
     .listing-link {
         display: block;
+        /* border-radius: 2rem !important; */
     }
 
     .listing-card {
@@ -72,6 +73,7 @@
         height: 100% !important;
         object-fit: cover;
         transition: transform 0.2s ease;
+        border-radius: 0;
     }
 
     /* 🎯 Mobile layout ke liye Fonts, Spacing and Alignment adjustments */
@@ -119,7 +121,7 @@
     /* transition:transform 0.1s linear;  */
     .col .card-img-wrapper:hover{
       /* transform: scale(1.05); */
-      transform: translateY(-10px) scale(1.04);
+      transform: translateY(-2px) scale(1.02);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     }
     
@@ -127,7 +129,7 @@
       transform: scale(1);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     transition: all 0.4s ease;
-        backdrop-filter: blur(5px);
+        /* backdrop-filter: blur(5px); */
 
     }
     .col :hover .title{
@@ -193,7 +195,7 @@
                 <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none">
                     <div class="card h-100 listing-card border-0">
                         
-                        <div class="card-img-wrapper position-relative overflow-hidden" style="border-radius: 1.5rem;">
+                        <div class="card-img-wrapper position-relative overflow-hidden" style="border-radius: 1.2rem;">
                             <img src="<%= listing.image.url %>" class="card-img-top listing-img" alt="listing_img">
                         </div>
                         
